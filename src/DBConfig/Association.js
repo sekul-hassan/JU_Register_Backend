@@ -3,6 +3,8 @@ const Semester = require("./../Model/Semester");
 const Notification = require("./../Model/Notification");
 const Exam = require("./../Model/Exam");
 const Course = require("../Model/Course");
+const Certificates = require("../Model/Certificates");
+const Transaction = require("../Model/Transaction");
 
 
 const association = async ()=>{
@@ -10,9 +12,15 @@ const association = async ()=>{
     User.hasMany(Semester, { foreignKey: 'userId' });
     Semester.belongsTo(User, { foreignKey: 'userId' });
 
+    User.hasMany(Certificates, { foreignKey: 'userId' });
+    Certificates.belongsTo(User, { foreignKey: 'userId' });
+
 // 2. One User -> Many Notifications
     User.hasMany(Notification, { foreignKey: 'userId' });
     Notification.belongsTo(User, { foreignKey: 'userId' });
+
+    User.hasMany(Transaction, { foreignKey: 'userId' });
+    Transaction.belongsTo(User, { foreignKey: 'userId' });
 
 // 3. One User -> Many Exams
     User.hasMany(Exam, { foreignKey: 'userId' });

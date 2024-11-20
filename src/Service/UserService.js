@@ -4,9 +4,9 @@ const {sign} = require("jsonwebtoken");
 const secret = "sekul"
 
 const saveUser = async (req, res) => {
-    const { email, password } = req.body;
+    const {name, email, password } = req.body;
 
-    if (!email || !password) {
+    if (!email || !password || !name) {
         return res.status(400).json({ error: "Email and password are required" });
     }
 
@@ -17,7 +17,7 @@ const saveUser = async (req, res) => {
             return res.status(409).json({ error: "Email already exists" });
         }
 
-        const newUser = await User.create({ email, password });
+        const newUser = await User.create({name, email, password });
         return res.status(201).json({ message: "User created successfully", user: newUser });
     } catch (err) {
         console.error("Error saving user:", err);

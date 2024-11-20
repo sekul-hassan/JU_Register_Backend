@@ -1,11 +1,14 @@
 const sequelize = require("../DBConfig/Config");
 const {DataTypes} = require("sequelize");
 
-const Exam = sequelize.define("Exam", {
+const Certificates = sequelize.define("Certificates", {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    type: {type: DataTypes.STRING, defaultValue: "regular"},
+    name: {type: DataTypes.STRING},
     examRoll: {type: DataTypes.STRING},
     regiNo: {type: DataTypes.STRING},
+    session: {type: DataTypes.STRING},
+    semester: {type: DataTypes.STRING},
+    examYear: {type: DataTypes.STRING},
 });
 
-module.exports = Exam;
+module.exports = Certificates;

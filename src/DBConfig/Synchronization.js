@@ -3,7 +3,7 @@ const sequelize = require("../DBConfig/Config");
 
 const synchronization = async ()=>{
     await association();
-    await sequelize.sync();
+    await sequelize.sync({alter:true});
 }
 
 module.exports = synchronization;
