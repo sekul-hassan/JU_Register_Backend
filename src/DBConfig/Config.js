@@ -15,4 +15,4 @@ sequelize
         console.error('Unable to connect to the database:', err);
     });
 
-module.exports = sequelize;
+module.exports = sequelize;  // Ensure you're exporting the sequelize instance correctly

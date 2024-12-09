@@ -27,19 +27,18 @@ const saveUser = async (req, res) => {
 
 const login = async (req, res) => {
     const { email, password } = req.body;
-
+    console.log(email + password);
     if (!email || !password) {
         return res.status(400).json({ error: "Email and password are required" });
     }
 
     try {
-
         const user = await User.findOne({ where: { email } });
         if (!user || user.password !== password) {
             return res.status(401).json({ error: "Invalid email or password" });
         }
 
-        const token = sign({ id: user.id, email: user.email }, secret, {
+        const token = sign({ id: user.id, email: user.email, user: { name: user.name } }, secret, {
             expiresIn: "1h", // Token expires in 1 hour
         });
 
@@ -49,5 +48,6 @@ const login = async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
     }
 };
+
 
 module.exports = { saveUser,login };

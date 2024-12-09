@@ -4,6 +4,6 @@ const {saveUser,login} = require("../Service/UserService");
 const userRouter = express.Router();
 
 userRouter.post("/register",saveUser);
-userRouter.get("/login",login);
+userRouter.post("/login",login);
 
 module.exports = userRouter;
