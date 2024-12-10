@@ -7,6 +7,7 @@ const examRouter = require("./Routes/ExamRoute");
 const certificatesRouter = require("./Routes/CertificatesRoutes");
 const {payment} = require("./Middleware/stripe");
 const transactionRouter = require("./Routes/TransactionRoutes");
+const hallRouter = require("./Routes/HallRoutes");
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -25,6 +26,7 @@ app.use("/api/exam",examRouter);
 app.use("/api/certificates",certificatesRouter);
 // app.use("/api/payment",payment);
 app.use("/api/transaction",transactionRouter);
+app.use("/api/hall",hallRouter);
 
 
 app.get("/", (req, res) => {

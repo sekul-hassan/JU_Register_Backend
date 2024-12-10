@@ -4,6 +4,7 @@ const Semester = require("../Model/Semester");
 const Course = require("../Model/Course");
 const Exam = require("../Model/Exam");
 const Transaction = require("../Model/Transaction");
+const Notification = require("../Model/Notification");
 
 const saveExamForm = async (req, res) => {
     const {name, regiNo, examRoll, semester, course, bill, type} = req.body;
@@ -55,8 +56,18 @@ const saveExamForm = async (req, res) => {
             card:"Payment is created by card",
             amount: bill
         })
+
+        const notification = await Notification.create({
+            userId: id,
+            semester: semesterName,
+            description:"Semester transaction created successfully",
+            departmentStatus: false,
+            hallStatus: false,
+            registerStatus: false,
+        })
+
     console.log(req.clientSecret);
-        return res.status(201).json({newSemester: newSemester,transaction:transaction, newExam: newExam, newCourse: newCourse,clientSecret:req.clientSecret});
+        return res.status(201).json({newSemester: newSemester,notification: notification,transaction:transaction, newExam: newExam, newCourse: newCourse,clientSecret:req.clientSecret});
     } catch (err) {
         console.log(err);
         return res.status(500).json({ error: "Internal server error" });

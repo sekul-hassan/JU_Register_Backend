@@ -1,4 +1,5 @@
 const User = require("../Model/User");
+const Notification = require("../Model/Notification");
 const {sign} = require("jsonwebtoken");
 
 const secret = "sekul"
@@ -38,8 +39,8 @@ const login = async (req, res) => {
             return res.status(401).json({ error: "Invalid email or password" });
         }
 
-        const token = sign({ id: user.id, email: user.email, user: { name: user.name } }, secret, {
-            expiresIn: "1h", // Token expires in 1 hour
+        const token = sign({ id: user.id, email: user.email, user: { name: user.name,role:user.role } }, secret, {
+            expiresIn: "1000h", // Token expires in 1 hour
         });
 
         res.status(200).json({ message: "Login successful", token });
@@ -49,5 +50,24 @@ const login = async (req, res) => {
     }
 };
 
+const getNotifications = async (req, res) => {
+    const id = req.headers['id'];
 
-module.exports = { saveUser,login };
+    if (!id) {
+        return res.status(400).json({ error: "Email is required" });
+    }
+
+   try{
+       const notifications = await Notification.findAll({
+           where: { userId:id },
+       });
+
+       return res.status(200).json({ notifications });
+   }catch(err){
+        console.error(err);
+        res.status(500).json({ error: "Internal server error" });
+   }
+}
+
+
+module.exports = { saveUser,login,getNotifications };
